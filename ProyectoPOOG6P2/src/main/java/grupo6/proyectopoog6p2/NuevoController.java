@@ -76,36 +76,24 @@ public class NuevoController {
         App.changeRoot(root);
     }
 
-    @FXML
-    private void guardarAnadir() throws IOException{
-        String datosAnadir= txtDatosAnadir.getText();
-        String cedulaAnadir= txtCedulaAnadir.getText();
-        String nombreAnadir= txtNombreAnadir.getText();
-        String telefonoAnadir= txtTelefonoAnadir.getText();
-        String emailAnadir= txtEmailAnadir.getText();
-        if((txtDatosAnadir.getText().isEmpty() || txtCedulaAnadir.getText().isEmpty() || txtNombreAnadir.getText().isEmpty() || txtTelefonoAnadir.getText().isEmpty() || txtEmailAnadir.getText().isEmpty())){
-            Alert alerta= new Alert(Alert.AlertType.WARNING);
-            alerta.setContentText("Por favor llene todos los campos ");
-            alerta.showAndWait();
-        }else{
-            Cliente clienteNuevo = new Cliente(datosAnadir,cedulaAnadir,nombreAnadir,telefonoAnadir,emailAnadir);
-            try{
-                BufferedWriter escritor = new BufferedWriter(new FileWriter("src/main/resources/grupo6/proyectopoog6p2/files/listaClientes.csv",true));
-                escritor.write(clienteNuevo.toString()+"\n");
-                escritor.flush();
-                escritor.close();
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Information Dialog");
-                 alert.setHeaderText("Resultado de la operación");
-                 alert.setContentText("Nueva persona agregada exitosamente");
-                 alert.showAndWait();
-            
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        switchToMenu();
-        }
-        
-    }
+   @FXML
+private void guardarAnadir() throws IOException {
+    String nombre = txtNombreAnadir.getText();
+    String cedula = txtCedulaAnadir.getText();
+    String email  = txtEmailAnadir.getText();
 
+    Validador v1 = new ValidadorNombre();
+    Validador v2 = new ValidadorCedula();
+    Validador v3 = new ValidadorEmail();
+
+    v1.setSiguiente(v2);
+    v2.setSiguiente(v3);
+
+    if (!v1.validar(nombre) || !v1.validar(cedula) || !v1.validar(email)) {
+        Alert alerta = new Alert(Alert.AlertType.WARNING);
+        alerta.setContentText("Datos inválidos");
+        alerta.showAndWait();
+        return;
+    }
+}
 }
