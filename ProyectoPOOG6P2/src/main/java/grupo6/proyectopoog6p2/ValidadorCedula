@@ -1,0 +1,12 @@
+package grupo6.proyectopoog6p2;
+
+public class ValidadorCedula extends ValidadorBase {
+    @Override
+    protected boolean puedeValidar(Object dato) {
+        if (dato instanceof String cedula && cedula.matches("\\d{10}")) {
+            return true;
+        }
+        System.out.println("Cédula inválida");
+        return false;
+    }
+}
