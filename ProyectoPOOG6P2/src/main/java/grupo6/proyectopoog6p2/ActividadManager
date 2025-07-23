@@ -1,0 +1,35 @@
+import grupo6.proyectopoog6p2.modelo.Actividad;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ActividadManager implements IObservable {
+
+    private List<Actividad> actividades = new ArrayList<>();
+    private List<IObserver> observers = new ArrayList<>();
+
+    public void cargarDesdeArchivo(String ruta) {
+        actividades = Actividad.cargarActividades(ruta);
+        notifyAllObservers();
+    }
+
+    public List<Actividad> getActividades() {
+        return actividades;
+    }
+
+    @Override
+    public void addObserver(IObserver o) {
+        observers.add(o);
+    }
+
+    @Override
+    public void removeObserver(IObserver o) {
+        observers.remove(o);
+    }
+
+    @Override
+    public void notifyAllObservers() {
+        for (IObserver o : observers) {
+            o.update();
+        }
+    }
+}
