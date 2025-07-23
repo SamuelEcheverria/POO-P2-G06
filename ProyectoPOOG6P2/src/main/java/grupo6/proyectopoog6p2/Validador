@@ -1,0 +1,6 @@
+package grupo6.proyectopoog6p2;
+
+public interface Validador {
+    void setSiguiente(Validador siguiente);
+    boolean validar(Object dato);
+}
