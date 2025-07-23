@@ -1,0 +1,12 @@
+package grupo6.proyectopoog6p2;
+
+public class ValidadorNombre extends ValidadorBase {
+    @Override
+    protected boolean puedeValidar(Object dato) {
+        if (dato instanceof String nombre && !nombre.trim().isEmpty()) {
+            return true;
+        }
+        System.out.println("Nombre inválido");
+        return false;
+    }
+}
