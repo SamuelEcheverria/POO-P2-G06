@@ -1,0 +1,12 @@
+package grupo6.proyectopoog6p2;
+
+public class ValidadorEmail extends ValidadorBase {
+    @Override
+    protected boolean puedeValidar(Object dato) {
+        if (dato instanceof String email && email.contains("@")) {
+            return true;
+        }
+        System.out.println("Email inválido");
+        return false;
+    }
+}
